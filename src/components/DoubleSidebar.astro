@@ -1,0 +1,128 @@
+---
+import ArrowLeft from '@/icons/ArrowLeft.astro';
+---
+<div id="sidebars" class="active inner">
+  <div id="sidebar-outer">
+    <a href="/studiocms-sidebar-poc">Home</a>
+    <a href="/studiocms-sidebar-poc/content">Content Management</a>
+  </div>
+  <div id="sidebar-inner">
+    <button id="navigate-to-outer-button">
+      <ArrowLeft />
+    </button>
+    Sidebar (Inner)
+    <button id="swap-to-content">
+      Click on page to edit
+    </button>
+  </div>
+</div>
+<style>
+  #sidebars {
+    --sidebars-container-width: calc((280px + 1px) * 2);
+    display: flex;
+    align-items: center;
+    width: var(--sidebars-container-width);
+    min-width: var(--sidebars-container-width);
+    overflow: hidden;
+    transition: all .15s ease;
+    z-index: 10;
+  }
+
+  #sidebars.active {
+    transform: translateX(0%);
+  }
+
+  #sidebar-outer {
+    height: 100%;
+    min-width: 280px;
+    width: 280px;
+    background-color: var(--background-step-1);
+    border-right: 1px solid var(--border);
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all .15s ease;
+  }
+
+  #sidebar-inner {
+    min-width: 280px;
+    width: 280px;
+    height: 100%;
+    background-color: var(--background-step-2);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    position: relative;
+    transition: all .15s ease;
+  }
+
+  #navigate-to-outer-button {
+    display: none;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: .25rem;
+    background-color: var(--background-step-3);
+    cursor: pointer;
+    border-radius: 8px;
+    align-items: center;
+    color: white;
+    outline: none;
+    border: none;
+    height: 32px;
+    width: 32px;
+  }
+
+  #show-navbar-button {
+    z-index: 2;
+  }
+
+  #swap-to-inner, #swap-to-content {
+    display: none;
+  }
+
+  @media screen and (max-width: 1200px) {
+    #sidebars {
+      --sidebars-container-width: calc(280px + 1px);
+    }
+
+    #swap-to-inner {
+      display: block;
+    }
+
+    #sidebars.inner {
+      #sidebar-outer, #sidebar-inner {
+        transform: translateX(-100%);
+      }
+    }
+
+    #navigate-to-outer-button {
+      display: flex;
+    }
+  }
+
+  @media screen and (max-width: 840px) {
+    #sidebars {
+      transform: translateX(-100%);
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+    }
+
+    #show-navbar-button {
+      display: flex;
+    }
+
+    #swap-to-content {
+      display: block;
+    }
+  }
+</style>

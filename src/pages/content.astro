@@ -1,0 +1,79 @@
+---
+import DoubleSidebar from '@/components/DoubleSidebar.astro';
+import Layout from '../layouts/Layout.astro';
+import Hamburger from '@/icons/Hamburger.astro';
+---
+
+<Layout title="StudioCMS Sidebar POC">
+	<main>
+		<DoubleSidebar />
+		<div id="page-content">
+			<button id="show-navbar-button">
+				<Hamburger />
+			</button>
+			Page Content
+		</div>
+	</main>
+</Layout>
+
+<style>
+	main {
+		display: flex;
+		flex-direction: row;
+		height: 100dvh;
+		width: 100dvw;
+		overflow: hidden;
+	}
+
+	#page-content {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+	}
+
+	#show-navbar-button {
+		display: none;
+		position: absolute;
+		top: 1rem;
+		left: 1rem;
+		padding: .25rem;
+		background-color: var(--background-step-3);
+		cursor: pointer;
+		border-radius: 8px;
+		align-items: center;
+		color: white;
+		outline: none;
+		border: none;
+		height: 32px;
+		width: 32px;
+	}
+
+	@media screen and (max-width: 840px) {
+		#show-navbar-button {
+			display: flex;
+		}
+	}
+</style>
+<script>
+	const sidebarContainer = document.querySelector<HTMLDivElement>('#sidebars')!;
+	const navToContentBtn = document.querySelector<HTMLButtonElement>('#swap-to-content')!;
+	const backToOuterBtn = document.querySelector<HTMLButtonElement>('#navigate-to-outer-button')!;
+	const openNavbarBtn = document.querySelector<HTMLButtonElement>('#show-navbar-button')!;
+
+	navToContentBtn.addEventListener('click', () => {
+		sidebarContainer.classList.remove('active');
+	});
+	
+	backToOuterBtn.addEventListener('click', () => {
+		sidebarContainer.classList.remove('inner');
+	});
+
+	openNavbarBtn.addEventListener('click', () => {
+		sidebarContainer.classList.add('inner');
+		sidebarContainer.classList.add('active');
+	});
+</script>
